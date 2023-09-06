@@ -1,0 +1,105 @@
+============================= test session starts =============================
+collecting ... collected 2 items
+
+test_wiki.py::test_one 
+PASSED                                            [ 50%]
+test_wiki.py::test_two
+FAILED                                            [100%]
+test_wiki.py:55 (test_two)
+fn = <selene.core.wait.Command object at 0x000001D2D70E5950>
+
+    def logic(fn: Callable[[E], R]) -> R:
+        finish_time = time.time() + self._timeout
+    
+        while True:
+            try:
+>               return fn(self.entity)
+
+..\..\venv\Lib\site-packages\selene\core\wait.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\venv\Lib\site-packages\selene\core\wait.py:61: in __call__
+    return self._fn(entity)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+element = <selene.core.entity.Element object at 0x000001D2D69E3FD0>
+
+    def raw_click(element: Element):
+>       element.locate().click()
+E       AttributeError: 'str' object has no attribute 'click'
+
+..\..\venv\Lib\site-packages\selene\core\entity.py:529: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_two():
+>       browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
+
+test_wiki.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\venv\Lib\site-packages\selene\core\entity.py:533: in click
+    self.wait.for_(
+..\..\venv\Lib\site-packages\selene\core\wait.py:143: in for_
+    return self._decorator(self)(logic)(fn)
+..\..\venv\Lib\site-packages\selene\core\wait.py:141: in logic
+    raise self._hook_failure(failure)
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\core\configuration.py:1449: in save_and_log_screenshot
+    path = self._save_screenshot_strategy(self)
+..\..\venv\Lib\site-packages\selene\core\configuration.py:1277: in <lambda>
+    ] = lambda config, path=None: fp.thread(
+..\..\venv\Lib\site-packages\selene\common\fp.py:83: in thread
+    return pipe(*functions)(arg)
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\common\fp.py:73: in <lambda>
+    lambda f, g: lambda x: f(g(x)) if g else f(x),
+..\..\venv\Lib\site-packages\selene\core\configuration.py:1308: in <lambda>
+    lambda path: (path if config.driver.get_screenshot_as_file(path) else None),
+..\..\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py:801: in get_screenshot_as_file
+    png = self.get_screenshot_as_png()
+..\..\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py:835: in get_screenshot_as_png
+    return b64decode(self.get_screenshot_as_base64().encode("ascii"))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = b'{"value":{"message":"Session not started or terminated"},"sessionId":"","status":13}'
+altchars = None, validate = False
+
+    def b64decode(s, altchars=None, validate=False):
+        """Decode the Base64 encoded bytes-like object or ASCII string s.
+    
+        Optional altchars must be a bytes-like object or ASCII string of length 2
+        which specifies the alternative alphabet used instead of the '+' and '/'
+        characters.
+    
+        The result is returned as a bytes object.  A binascii.Error is raised if
+        s is incorrectly padded.
+    
+        If validate is False (the default), characters that are neither in the
+        normal base-64 alphabet nor the alternative alphabet are discarded prior
+        to the padding check.  If validate is True, these non-alphabet characters
+        in the input result in a binascii.Error.
+        For more information about the strict base64 check, see:
+    
+        https://docs.python.org/3.11/library/binascii.html#binascii.a2b_base64
+        """
+        s = _bytes_from_decode_data(s)
+        if altchars is not None:
+            altchars = _bytes_from_decode_data(altchars)
+            assert len(altchars) == 2, repr(altchars)
+            s = s.translate(bytes.maketrans(altchars, b'+/'))
+>       return binascii.a2b_base64(s, strict_mode=validate)
+E       binascii.Error: Incorrect padding
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\base64.py:88: Error
+
+
+=================== 1 failed, 1 passed in 68.31s (0:01:08) ====================
+
+Process finished with exit code 1
